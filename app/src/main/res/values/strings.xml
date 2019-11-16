@@ -3,4 +3,8 @@
     <string name="roll_text">Roll</string>
     <string name="hold_text">Hold</string>
     <string name="reset_text">Reset</string>
+    <string name="default_user_score">Your Score: </string>
+    <string name="comp_score">Computer Score: </string>
+    <string name="turn_score">Turn Score: </string>
+    <string name="image_descrip">Dice Face</string>
 </resources>
