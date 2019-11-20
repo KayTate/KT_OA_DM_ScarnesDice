@@ -9,19 +9,22 @@
         android:id="@+id/user_score_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/default_user_score" />
+        android:text="@string/default_user_score"
+        android:textSize="@dimen/base_text_size"/>
 
     <TextView
         android:id="@+id/comp_score_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/comp_score" />
+        android:text="@string/comp_score"
+        android:textSize="@dimen/base_text_size"/>
 
     <TextView
         android:id="@+id/turn_score_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/turn_score" />
+        android:text="@string/turn_score"
+        android:textSize="@dimen/base_text_size"/>
 
     <ImageView
         android:id="@+id/dice_view"
