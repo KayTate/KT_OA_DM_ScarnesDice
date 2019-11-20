@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void userTurn(int roll) {
-        Log.w(APP_TAG, String.format("Top of gameturn method"));
+        Log.w(APP_TAG, String.format("Top of userturn method"));
 
         if(roll != 1){
             UserTurn += roll;
             Hold();
         }
         else{
-            UserTurn += 0;
+            UserTurn = 0;
         }
     }
 
@@ -114,6 +114,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void ComputerTurn() {
+        Button roll_btn = findViewById(R.id.roll_btn);
+        Button hold_btn = findViewById(R.id.hold_btn);
+
+        roll_btn.setEnabled(false);
+        hold_btn.setEnabled(false);
+
+        while(CompOverall < 20){
+            int roll = Roll();
+            if(roll != 1){
+                CompTurn = roll;
+            }
+            else{
+                CompTurn = 0;
+            }
+            CompOverall += CompTurn;
+        }
 
     }
 }
