@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     int UserTurn;
     int CompOverall;
     int CompTurn;
-    int roll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,30 +35,31 @@ public class MainActivity extends AppCompatActivity {
         hold_btn.setOnClickListener(new HoldListener());
     }
 
-    private int gameTurn(String user) {
+
+    private void userTurn(int roll) {
         Log.w(APP_TAG, String.format("Top of gameturn method"));
-        int turn_score;
 
         if(roll != 1){
-            turn_score = roll;
+            UserTurn += roll;
+            Hold();
         }
         else{
-            turn_score = 0;
+            UserTurn += 0;
         }
-        return turn_score;
     }
 
 
     private class RollListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            Roll();
+            int roll = Roll();
+            userTurn(roll);
 
         }
     }
 
-    private void Roll() {
-        roll = rand.nextInt(6) + 1;
+    private int Roll() {
+        int roll = rand.nextInt(6) + 1;
         ImageView dice = findViewById(R.id.dice_view);
         Log.w(APP_TAG, String.format("Rolled a %d", roll));
 
@@ -83,26 +83,22 @@ public class MainActivity extends AppCompatActivity {
                 dice.setImageResource(R.drawable.dice6);
                 break;
         }
+        return roll;
     }
+
 
     private class HoldListener implements View.OnClickListener{
 
         @Override
         public void onClick(View view) {
-            Hold("user");
+            Hold();
 
         }
     }
 
-    private void Hold(String user) {
-        switch (user) {
-            case "computer":
-                CompOverall += CompTurn;
-                break;
-            case "user":
-                UserOverall += UserTurn;
-                break;
-        }
+    private void Hold() {
+        UserOverall += UserTurn;
+        ComputerTurn();
     }
 
     private class ResetListener implements View.OnClickListener{
@@ -115,5 +111,9 @@ public class MainActivity extends AppCompatActivity {
             CompTurn = 0;
 
         }
+    }
+
+    private void ComputerTurn() {
+
     }
 }
