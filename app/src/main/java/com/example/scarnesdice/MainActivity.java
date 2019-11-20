@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,14 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void userTurn(int roll) {
-        Log.w(APP_TAG, String.format("Top of userturn method"));
-
         if(roll != 1){
             UserTurn += roll;
-            Hold();
         }
         else{
             UserTurn = 0;
+            Hold();
         }
     }
 
@@ -52,8 +51,13 @@ public class MainActivity extends AppCompatActivity {
     private class RollListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            Log.w(APP_TAG, "User turn");
+
             int roll = Roll();
             userTurn(roll);
+
+            TextView turn_score = findViewById(R.id.turn_score_textView);
+            turn_score.setText(String.format("Turn Score: %d", UserTurn));
 
         }
     }
@@ -98,6 +102,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void Hold() {
         UserOverall += UserTurn;
+        UserTurn = 0;
+
+        TextView user_score = findViewById(R.id.user_score_textview);
+        user_score.setText(String.format("Your Score: %d", UserOverall));
+
+        TextView turn_score = findViewById(R.id.turn_score_textView);
+        turn_score.setText("Turn Score: 0");
+
         ComputerTurn();
     }
 
@@ -114,22 +126,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void ComputerTurn() {
+        Log.w(APP_TAG, "Computer Turn");
         Button roll_btn = findViewById(R.id.roll_btn);
         Button hold_btn = findViewById(R.id.hold_btn);
 
         roll_btn.setEnabled(false);
         hold_btn.setEnabled(false);
 
-        while(CompOverall < 20){
+        while (CompTurn < 20) {
             int roll = Roll();
-            if(roll != 1){
-                CompTurn = roll;
-            }
-            else{
+            if (roll != 1) {
+                CompTurn += roll;
+            } else {
                 CompTurn = 0;
+                break;
             }
-            CompOverall += CompTurn;
+            TextView turn_score = findViewById(R.id.turn_score_textView);
+            turn_score.setText(String.format("Turn Score: %d", CompTurn));
         }
+        CompOverall += CompTurn;
+        CompTurn = 0;
+        Log.w(APP_TAG, "Comp overall " + CompOverall);
+
+        TextView computer_score = findViewById(R.id.comp_score_textView);
+        computer_score.setText(String.format("Computer Score: %d", CompOverall));
+
+        TextView turn_score = findViewById(R.id.turn_score_textView);
+        turn_score.setText("Turn Score: 0");
+
+        roll_btn.setEnabled(true);
+        hold_btn.setEnabled(true);
 
     }
 }
