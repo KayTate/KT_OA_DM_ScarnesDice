@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
         while (CompTurn < 20) {
             int roll = Roll();
-            //Good place to insert wait?
             if (roll != 1) {
                 CompTurn += roll;
             } else {
@@ -141,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         ComputerTurn();
     }
 
-
     //Listeners
     private class RollListener implements View.OnClickListener {
         @Override
@@ -172,10 +170,22 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
+            TextView your_score = findViewById(R.id.user_score_textview);
+            TextView comp_score = findViewById(R.id.comp_score_textView);
+            TextView turn_score = findViewById(R.id.turn_score_textView);
+
+            your_score.setText(String.format(Locale.US, "%s %d", getString(R.string.user_score), 0));
+            comp_score.setText(String.format(Locale.US, "%s %d", getString(R.string.comp_score), 0));
+            turn_score.setText(String.format(Locale.US, "%s %d", getString(R.string.turn_score), 0));
+
             UserOverall = 0;
             UserTurn = 0;
             CompOverall = 0;
             CompTurn = 0;
+
+            Log.w(APP_TAG, String.format(Locale.US,
+                    "Reset...Scores: %d, %d, %d, %d",
+                    UserOverall, UserTurn, CompOverall, CompTurn));
 
         }
     }
