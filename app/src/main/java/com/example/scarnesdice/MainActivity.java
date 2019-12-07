@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         String turn_score_string = getString(R.string.turn_score);
         String comp_score_stirng = getString(R.string.comp_score);
 
-        while (CompTurn < 20) {
+        while(CompTurn < 20){
             int roll = Roll();
             if (roll != 1) {
                 CompTurn += roll;
@@ -89,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
         computer_score.setText(String.format(Locale.US, "%s %d", comp_score_stirng, CompOverall));
         turn_score.setText(String.format(Locale.US, "%s %d", turn_score_string, 0));
+
+        Win();
 
         roll_btn.setEnabled(true);
         hold_btn.setEnabled(true);
@@ -137,7 +140,25 @@ public class MainActivity extends AppCompatActivity {
         TextView turn_score = findViewById(R.id.turn_score_textView);
         turn_score.setText(String.format(Locale.US, "%s %d", turn_score_string, 0));
 
+        Win();
         ComputerTurn();
+    }
+
+    private void Win(){
+        TextView win = findViewById(R.id.winTV);
+        Button roll_btn = findViewById(R.id.roll_btn);
+        Button hold_btn = findViewById(R.id.hold_btn);
+
+        if(UserOverall >= 100){
+            win.setText("You Win! :) (Reset to Play Again!)");
+            roll_btn.setEnabled(false);
+            hold_btn.setEnabled(false);
+
+        } else if(CompOverall >= 100){
+            win.setText("Computer Won :( (Reset to Play Again!)");
+        }else{
+            win.setText("Winner to be Determined...");
+        }
     }
 
     //Listeners
@@ -145,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Log.w(APP_TAG, "User turn");
-
             int roll = Roll();
             userTurn(roll);
 
@@ -162,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Hold();
-
         }
     }
 
@@ -173,10 +192,15 @@ public class MainActivity extends AppCompatActivity {
             TextView your_score = findViewById(R.id.user_score_textview);
             TextView comp_score = findViewById(R.id.comp_score_textView);
             TextView turn_score = findViewById(R.id.turn_score_textView);
+            Button roll_btn = findViewById(R.id.roll_btn);
+            Button hold_btn = findViewById(R.id.hold_btn);
+            roll_btn.setEnabled(true);
+            hold_btn.setEnabled(true);
 
             your_score.setText(String.format(Locale.US, "%s %d", getString(R.string.user_score), 0));
             comp_score.setText(String.format(Locale.US, "%s %d", getString(R.string.comp_score), 0));
             turn_score.setText(String.format(Locale.US, "%s %d", getString(R.string.turn_score), 0));
+
 
             UserOverall = 0;
             UserTurn = 0;

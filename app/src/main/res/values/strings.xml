@@ -7,4 +7,5 @@
     <string name="comp_score">Computer Score: </string>
     <string name="turn_score">Turn Score: </string>
     <string name="image_descrip">Dice Face</string>
+    <string name="winner_string">Winner Goes Here</string>
 </resources>
